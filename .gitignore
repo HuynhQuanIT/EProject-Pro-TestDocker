@@ -65,7 +65,8 @@ docker-compose.dev.yml
 **/docker-cache/
 **/.docker/
 
-# Ignore main docker-compose.yml (contains local configurations)
+# Docker compose override file (thường chỉ dùng local)
+docker-compose.override.yml
 docker-compose.yml
 
 # =========================
