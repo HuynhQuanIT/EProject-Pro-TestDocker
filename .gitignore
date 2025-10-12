@@ -65,8 +65,7 @@ docker-compose.dev.yml
 **/docker-cache/
 **/.docker/
 
-# Keep main docker-compose.yml for production
-# docker-compose.yml
+# Ignore main docker-compose.yml (contains local configurations)
 docker-compose.yml
 
 # =========================
