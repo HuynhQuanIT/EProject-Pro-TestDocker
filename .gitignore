@@ -1,0 +1,203 @@
+# =========================
+# NODE.JS DEPENDENCIES
+# =========================
+# Dependencies in all microservices
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+
+# Package manager lockfiles (keep these for consistency)
+# package-lock.json
+# yarn.lock
+
+# =========================
+# ENVIRONMENT VARIABLES
+# =========================
+# Environment files containing sensitive data
+.env
+.env.local
+.env.development
+.env.test
+.env.staging
+.env.production
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+
+# =========================
+# LOGS & RUNTIME DATA
+# =========================
+# Application logs
+logs/
+*.log
+**/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary folders
+tmp/
+temp/
+**/tmp/
+**/temp/
+
+# =========================
+# DOCKER & CONTAINER RELATED
+# =========================
+# Docker override files (for local development)
+docker-compose.override.yml
+docker-compose.dev.yml
+
+# Docker build cache
+**/docker-build/
+**/docker-cache/
+**/.docker/
+
+# Keep main docker-compose.yml for production
+# docker-compose.yml
+
+# =========================
+# BUILD & DISTRIBUTION
+# =========================
+# Build outputs
+build/
+dist/
+out/
+**/build/
+**/dist/
+**/out/
+
+# Coverage reports
+coverage/
+.nyc_output
+*.lcov
+**/coverage/
+
+# =========================
+# DATABASE & STORAGE
+# =========================
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+data/
+**/data/
+
+# MongoDB dump
+dump.rdb
+
+# File uploads
+uploads/
+storage/
+public/uploads/
+
+# =========================
+# IDE & EDITOR
+# =========================
+# VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# OPERATING SYSTEM
+# =========================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# =========================
+# TESTING & DEVELOPMENT
+# =========================
+# Test results
+test-results/
+.nyc_output/
+
+# Development tools
+.cache
+.parcel-cache
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# =========================
+# SECURITY & CERTIFICATES
+# =========================
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.cert
+
+# =========================
+# MICROSERVICES SPECIFIC
+# =========================
+# Service-specific configs
+config/local.js
+config/local.json
+
+# Postman collections with sensitive data
+# *.postman_collection.json
+# *.postman_environment.json
+
+# Documentation build
+docs/build/
+
+# =========================
+# MISCELLANEOUS
+# =========================
+# Compressed files
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+
+# Optional REPL history
+.node_repl_history
+
+# TypeScript cache
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache

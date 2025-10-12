@@ -1,0 +1,78 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - mongodb_data:/data/db
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3003:3003"
+    depends_on:
+      - auth
+      - rabbitmq
+      - mongodb
+    environment:
+      - NODE_ENV=production
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+      - MONGODB_URL=mongodb://mongoadmin:secret@mongodb:27017/
+      - JWT_SECRET=mysecretkey
+
+  auth:
+    build: ./auth
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+      - mongodb
+    environment:
+      - NODE_ENV=production
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+      - MONGODB_URL=mongodb://mongoadmin:secret@mongodb:27017/
+      - JWT_SECRET=mysecretkey
+
+  order:
+    build: ./order
+    ports:
+      - "3002:3002"
+    depends_on:
+      - rabbitmq
+      - mongodb
+    environment:
+      - NODE_ENV=production
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+      - MONGODB_URL=mongodb://mongoadmin:secret@mongodb:27017/
+      - JWT_SECRET=mysecretkey
+
+  product:
+    build: ./product
+    ports:
+      - "3001:3001"
+    depends_on:
+      - rabbitmq
+      - mongodb
+    environment:
+      - NODE_ENV=production
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672/
+      - MONGODB_URL=mongodb://mongoadmin:secret@mongodb:27017/
+      - JWT_SECRET=mysecretkey
+
+volumes:
+  mongodb_data:
+  rabbitmq_data:

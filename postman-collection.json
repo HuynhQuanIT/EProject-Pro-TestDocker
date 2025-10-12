@@ -1,0 +1,99 @@
+{
+  "info": {
+    "name": "Product Quantity Management API",
+    "description": "Test chức năng quản lý quantity sản phẩm",
+    "version": "1.0.0"
+  },
+  "requests": [
+    {
+      "name": "1. Tạo sản phẩm mới với quantity",
+      "method": "POST",
+      "url": "http://localhost:3001/api/products",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "name": "iPhone 15 Pro",
+        "price": 30000000,
+        "description": "iPhone 15 Pro 256GB",
+        "quantity": 15
+      }
+    },
+    {
+      "name": "2. Lấy danh sách sản phẩm",
+      "method": "GET",
+      "url": "http://localhost:3001/api/products",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}"
+      }
+    },
+    {
+      "name": "3. Lấy chi tiết sản phẩm theo ID",
+      "method": "GET",
+      "url": "http://localhost:3001/api/products/{{product_id}}",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}"
+      }
+    },
+    {
+      "name": "4. Tạo đơn hàng (sẽ giảm quantity)",
+      "method": "POST",
+      "url": "http://localhost:3001/api/products/buy",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "items": [
+          {
+            "productId": "{{product_id}}",
+            "quantity": 3
+          }
+        ]
+      }
+    },
+    {
+      "name": "5. Tạo đơn hàng với quantity > tồn kho (lỗi)",
+      "method": "POST",
+      "url": "http://localhost:3001/api/products/buy",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "items": [
+          {
+            "productId": "{{product_id}}",
+            "quantity": 100
+          }
+        ]
+      }
+    },
+    {
+      "name": "6. Cập nhật quantity sản phẩm",
+      "method": "PUT",
+      "url": "http://localhost:3001/api/products/{{product_id}}/quantity",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "quantity": 25
+      }
+    },
+    {
+      "name": "7. Kiểm tra order status",
+      "method": "GET",
+      "url": "http://localhost:3001/api/products/orders/{{order_id}}",
+      "headers": {
+        "Authorization": "Bearer {{jwt_token}}"
+      }
+    }
+  ],
+  "variables": {
+    "jwt_token": "your_jwt_token_here",
+    "product_id": "product_id_here",
+    "order_id": "order_id_here"
+  }
+}
