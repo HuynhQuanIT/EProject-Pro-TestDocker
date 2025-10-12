@@ -21,10 +21,8 @@ Một hệ thống thương mại điện tử được xây dựng theo kiến 
 - [🧪 Testing](#-testing)
 - [🐳 Docker](#-docker)
 - [📊 Monitoring](#-monitoring)
-- [🔐 Bảo mật](#-bảo-mật)
 - [🚀 Deployment](#-deployment)
 - [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
 
 ## 🏗️ Kiến trúc hệ thống
 
@@ -249,7 +247,6 @@ services:
 ```json
 {
   "username": "testuser",
-  "email": "test@example.com",
   "password": "password123"
 }
 ```
@@ -453,23 +450,6 @@ docker-compose logs -f
 docker-compose logs -f product
 ```
 
-## 🔐 Bảo mật
-
-### Authentication
-- **JWT Tokens**: Stateless authentication
-- **Password Hashing**: bcrypt với salt rounds
-- **Protected Routes**: Middleware validation
-
-### Environment Security
-- **Environment Variables**: Sensitive data trong .env
-- **Docker Secrets**: Production secret management
-- **CORS Configuration**: Cross-origin request control
-
-### Database Security
-- **MongoDB Authentication**: Username/password authentication
-- **Connection Encryption**: TLS/SSL ready
-- **Input Validation**: Mongoose schema validation
-
 ## 🚀 Deployment
 
 ### Production Deployment
@@ -562,56 +542,13 @@ docker-compose up -d mongodb
 POST /auth/login
 ```
 
-#### Service Port Conflicts
-```bash
-# Check port usage
-netstat -tlnp | grep :3001
-
-# Stop conflicting services
-sudo lsof -ti:3001 | xargs kill -9
-```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
 ## 📞 Liên hệ
 
-- **Project Lead**: Your Name
-- **Email**: your.email@example.com
-- **GitHub**: [@your-username](https://github.com/your-username)
+- **Project Lead**: Huỳnh Văn Quân
+- **Email**: huynhquan246810@gmail.com
 
 ---
-
-## 🎯 Roadmap
-
-### Phase 2 Features
-- [ ] User roles and permissions
-- [ ] Product categories và tags
-- [ ] Order history và tracking
-- [ ] Payment integration
-- [ ] Email notifications
-- [ ] Admin dashboard
-- [ ] API rate limiting
-- [ ] Redis caching
-- [ ] Elasticsearch for search
-- [ ] Kubernetes deployment
-
-### Phase 3 Features
-- [ ] Mobile app integration
-- [ ] Real-time notifications
-- [ ] Advanced analytics
-- [ ] Multi-tenant support
-- [ ] Internationalization (i18n)
-
----
-
-## 👨‍💻 Tác giả
-
-- **Sinh viên:** Huỳnh Văn Quân
-- **Mã SV:** 22636731
-- **Môn học:** Lập trình hướng dịch vụ
 
 **⭐ Nếu project này hữu ích, hãy star repository!**

@@ -67,6 +67,7 @@ docker-compose.dev.yml
 
 # Keep main docker-compose.yml for production
 # docker-compose.yml
+docker-compose.yml
 
 # =========================
 # BUILD & DISTRIBUTION
