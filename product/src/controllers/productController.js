@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const ProductsService = require("../services/productsService");
 const messageBroker = require("../utils/messageBroker");
 const uuid = require('uuid');
 
@@ -11,6 +12,7 @@ class ProductController {
     this.createOrder = this.createOrder.bind(this);
     this.getOrderStatus = this.getOrderStatus.bind(this);
     this.ordersMap = new Map();
+    this.productsService = new ProductsService();
 
   }
 
@@ -54,25 +56,18 @@ class ProductController {
         return res.status(400).json({ message: "Items array is required" });
       }
 
-      // Check product availability and get product details
+      // Check product availability and reduce quantities using ProductService
+      const inventoryResults = await this.productsService.validateAndReduceProductQuantities(items);
+      
+      // Build order products from inventory results
       const orderProducts = [];
-      for (const item of items) {
-        const product = await Product.findById(item.productId);
-        if (!product) {
-          return res.status(404).json({ message: `Product with ID ${item.productId} not found` });
-        }
-        
-        if (product.quantity < item.quantity) {
-          return res.status(400).json({ 
-            message: `Insufficient quantity for product ${product.name}. Available: ${product.quantity}, Requested: ${item.quantity}` 
-          });
-        }
-
+      for (const result of inventoryResults) {
+        const product = await Product.findById(result.productId);
         orderProducts.push({
-          productId: product._id,
-          name: product.name,
+          productId: result.productId,
+          name: result.productName,
           price: product.price,
-          quantity: item.quantity
+          quantity: result.reducedQuantity
         });
       }
   

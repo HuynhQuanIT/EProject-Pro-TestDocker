@@ -1,16 +1,8 @@
-const mongoose = require("mongoose");
+const Product = require("../models/product");
 
 /**
- * Class that contains the business logic for the product repository interacting with the product model
+ * Class that contains the data access logic for the product repository
  */
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  price: { type: Number, required: true },
-});
-
-const Product = mongoose.model("Product", productSchema);
-
 class ProductsRepository {
   async create(product) {
     const createdProduct = await Product.create(product);
@@ -25,6 +17,20 @@ class ProductsRepository {
   async findAll() {
     const products = await Product.find().lean();
     return products;
+  }
+
+  async update(productId, updateData) {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId, 
+      updateData, 
+      { new: true, runValidators: true }
+    );
+    return updatedProduct;
+  }
+
+  async delete(productId) {
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+    return deletedProduct;
   }
 }
 

@@ -1,9 +1,10 @@
 const amqp = require("amqplib");
-const Product = require("../models/product");
+const ProductsService = require("../services/productsService");
 
 class MessageBroker {
   constructor() {
     this.channel = null;
+    this.productsService = new ProductsService();
   }
 
   async connect() {
@@ -50,37 +51,13 @@ class MessageBroker {
 
   async updateProductQuantities(orderData) {
     try {
-      const { products } = orderData;
-      
-      if (!products || !Array.isArray(products)) {
-        console.error("Invalid products data in order");
-        return;
-      }
-
-      // Update quantity for each product in the order
-      for (const orderProduct of products) {
-        const productId = orderProduct.productId;
-        const quantityOrdered = orderProduct.quantity;
-
-        if (productId && quantityOrdered) {
-          const product = await Product.findById(productId);
-          
-          if (product) {
-            if (product.quantity >= quantityOrdered) {
-              // Decrease the quantity
-              product.quantity -= quantityOrdered;
-              await product.save();
-              console.log(`Updated product ${product.name}: quantity decreased by ${quantityOrdered}, new quantity: ${product.quantity}`);
-            } else {
-              console.error(`Insufficient quantity for product ${product.name}. Available: ${product.quantity}, Requested: ${quantityOrdered}`);
-            }
-          } else {
-            console.error(`Product with ID ${productId} not found`);
-          }
-        }
-      }
+      // Delegate to ProductsService for business logic
+      const results = await this.productsService.processOrderInventoryUpdate(orderData);
+      console.log("Inventory updated successfully:", results);
+      return results;
     } catch (err) {
-      console.error("Error updating product quantities:", err);
+      console.error("Error updating product quantities:", err.message);
+      throw err;
     }
   }
 
